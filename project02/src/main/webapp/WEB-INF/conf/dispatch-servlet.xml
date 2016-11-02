@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<context:component-scan base-package="com.board.controller">
+	  <context:exclude-filter type="regex" 
+	                          expression="com.board.controller.json.*"/>
+	</context:component-scan>
+	
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+  <!-- 기존에 설치된 뷰 리졸버(ViewResolver,JSP 파일을 찾아 실행시키는 객체)를  
+       WEB-INF 폴더에서 JSP 파일을 찾아주는 뷰 리졸버로 교체하자! -->    
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    <property name="prefix" value="/WEB-INF/jsp/"/>
+    <property name="suffix" value=".jsp"/>
+  </bean> 
+  
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
