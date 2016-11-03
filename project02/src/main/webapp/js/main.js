@@ -22,7 +22,6 @@ function loadBoards() {
 	});
 	
 	$('#formDetail').hide();	//게시물 상세보기 숨기기
-	$('#formEditBottom').hide();
 	$('#formPage').hide();		//글쓰기 숨기기
 	$('.form-reply').hide();	//댓글쓰는 div 숨기기
 	
@@ -79,7 +78,6 @@ $('#addBtn').click(function() {
 		},
 		dataType: 'json',						//json 데이터 주고받음
 		success: function(result) {
-			
 			if (result.status != 'success') {
 				alert('게시물 등록 오류입니다.');
 				return;
@@ -116,7 +114,6 @@ $('#boardTbl').on('click', '.titleLink', function(event) {
 		    $('#fUser').val(result.data.user);
 		    $('#fCreatedDate').text(result.data.createdDate);
 		    $('#formDetail').show();
-		    $('#formEditBottom').show();
 		    //데이터 삽입
 		    $('#formPage').hide();
 		    $('#fNoView').text(result.data.no);
@@ -185,7 +182,6 @@ $('#updBtn').click(function() {
 
 $('#searchBtn').click(function(){
 	$('#formDetail').hide();
-	$('#formEditBottom').hide();
 	$('#formPage').hide();
 	var sValue = $('#sValue').val();
 	var sWord = $('#sWord').val();
@@ -291,10 +287,8 @@ $('#fPwdView').on('keyup',function(){
         }); 
 	}); 
 
-
 $('#detailEdit').on('click',function(){
 	$('#formDetail').hide();
-	$('#formEditBottom').hide();
 	$('#formPage').show();
 	$('.form-reply').hide();
 	$('#fPwdEdit').hide();
@@ -302,7 +296,6 @@ $('#detailEdit').on('click',function(){
 
 $('#writeBtn').on('click',function(){
 	$('#formDetail').hide();
-	$('#formEditBottom').show();
 	$('#formPage').show();
 	$('#resetBtn').click();
 	$('.form-reply').hide();

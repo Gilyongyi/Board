@@ -23,7 +23,7 @@
     <result column="rp" property="rp"/>
     <!-- 파일 -->
     <result column="fileName" property="fileName"/>
-    <result column="upfile" property="upFile" jdbcType="BLOB" javaType="java.lang.String"/>
+    <!-- <result column="upfile" property="upFile" jdbcType="BLOB" javaType="java.lang.String"/> -->
   </resultMap>
   
 <!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON -->
