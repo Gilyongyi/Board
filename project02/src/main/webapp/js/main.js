@@ -7,7 +7,6 @@ var replyTemplate = Handlebars.compile(replySource);
 //default pageNo, pageSize
 var pageNo = 1;
 var pageSize = 5;
-	
 loadBoards();	//게시물 리스트 function 호출
 
 //게시물 리스트
@@ -23,6 +22,7 @@ function loadBoards() {
 	});
 	
 	$('#formDetail').hide();	//게시물 상세보기 숨기기
+	$('#formEditBottom').hide();
 	$('#formPage').hide();		//글쓰기 숨기기
 	$('.form-reply').hide();	//댓글쓰는 div 숨기기
 	
@@ -66,6 +66,7 @@ $('#addBtn').click(function() {
 		alert('비밀번호를 입력하지 않았습니다.')
 		return false;
 	}
+	
 	$.ajax({
 		url: contextRoot + 'board/add.json',	//URL
 		method: 'post',							//http protocol post 방식
@@ -73,10 +74,12 @@ $('#addBtn').click(function() {
 			title:$('#fTitle').val(), 
 			content:$('#fContent').val(),
 			user:$('#fUser').val(),
+			fileName:$('#upFile').val(),
 			pwd:$('#fPwd').val()
 		},
 		dataType: 'json',						//json 데이터 주고받음
 		success: function(result) {
+			
 			if (result.status != 'success') {
 				alert('게시물 등록 오류입니다.');
 				return;
@@ -113,6 +116,7 @@ $('#boardTbl').on('click', '.titleLink', function(event) {
 		    $('#fUser').val(result.data.user);
 		    $('#fCreatedDate').text(result.data.createdDate);
 		    $('#formDetail').show();
+		    $('#formEditBottom').show();
 		    //데이터 삽입
 		    $('#formPage').hide();
 		    $('#fNoView').text(result.data.no);
@@ -120,6 +124,7 @@ $('#boardTbl').on('click', '.titleLink', function(event) {
 		    $('#fContentView').text(result.data.content);
 		    $('#fUserView').text(result.data.user);
 		    $('#fCreatedDateView').text(result.data.createdDate);
+		    $('#fFileNameView').text(result.data.fileName);
 		    
 		    $('#getBoardNo').attr('value',result.data.no);
 		    loadReplys();
@@ -180,6 +185,7 @@ $('#updBtn').click(function() {
 
 $('#searchBtn').click(function(){
 	$('#formDetail').hide();
+	$('#formEditBottom').hide();
 	$('#formPage').hide();
 	var sValue = $('#sValue').val();
 	var sWord = $('#sWord').val();
@@ -285,8 +291,10 @@ $('#fPwdView').on('keyup',function(){
         }); 
 	}); 
 
+
 $('#detailEdit').on('click',function(){
 	$('#formDetail').hide();
+	$('#formEditBottom').hide();
 	$('#formPage').show();
 	$('.form-reply').hide();
 	$('#fPwdEdit').hide();
@@ -294,6 +302,7 @@ $('#detailEdit').on('click',function(){
 
 $('#writeBtn').on('click',function(){
 	$('#formDetail').hide();
+	$('#formEditBottom').show();
 	$('#formPage').show();
 	$('#resetBtn').click();
 	$('.form-reply').hide();

@@ -81,6 +81,12 @@
 								<p id="fCreatedDateView" class="form-control-static"></p>
 							</div>
 						</div>
+						<div class="form-group view-form y-hidden">
+							<label class="col-sm-2 control-label" style="font-size:30px;">첨부 파일</label>
+							<div class="col-sm-10">
+								<p id="fFileNameView" class="form-control-static"></p>
+							</div>
+						</div>
 						<div class="form-group">
 							<label for="fPwdView" class="col-sm-2 control-label" style="font-size:30px;">비밀번호</label>
 							<div class="col-sm-4">
@@ -117,7 +123,7 @@
 				<!-- 글쓰기 -->
 				<div id="formPage">
 					<h2 style="font-size:30px;">글 쓰 기</h2>
-					<form class="form-horizontal" id="formEdit">
+					<form class="form-horizontal" id="formEdit" method="POST" enctype="multipart/form-data">
 						<div class="form-group view-form y-hidden">
 							<label class="col-sm-2 control-label" style="font-size:30px;">번호</label>
 							<div class="col-sm-10">
@@ -146,13 +152,10 @@
 							</div>
 						</div>
 						<!-- fileupload -->
-						 <div class="fileupload fileupload-new form-group" data-provides="fileupload" id="fFileUpload">
-						 <label for="ffile" class="col-sm-2 control-label" style="font-size:30px;">파일</label>
-						    <div class="col-sm-10">
-							    <span class="btn btn-primary btn-file"><span class="fileupload-new">Select file</span>
-							    <span class="fileupload-exists">or Change</span>         <input type="file" /></span>
-							    <span class="fileupload-preview"  id="fFilePreView"></span>
-							    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+						 <div class="form-group">
+						    <label for="inputFile" class="col-sm-2 control-label" style="font-size:30px;">첨부 파일</label>
+						    <div class="col-sm-8">
+						    	<input type="file" class="form-control"	id="upFile" name="upFile">
 						  	</div>
 						  </div>
 						<div class="form-group" id="fPwdEdit">

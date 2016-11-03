@@ -60,11 +60,12 @@ public class BoardController {
   public String add(Board board) {
     HashMap<String,Object> result = new HashMap<>();
     try {
-      boardService.addBoard(board);
-      result.put("status", "success");
-    } catch (Exception e) {
-      result.put("status", "failure");
-    }
+    	System.out.println("Board : "+board);
+    	boardService.addBoard(board);
+    	result.put("status", "success");
+    	}catch (Exception e) {
+    	result.put("status", "failure");
+    	}
     return new Gson().toJson(result);
   }
   

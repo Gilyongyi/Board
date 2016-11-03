@@ -26,6 +26,18 @@
     <property name="suffix" value=".jsp"/>
   </bean> 
   
+  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize">
+       <value>10000000</value>
+    </property>
+    <property name="uploadTempDir" ref="uploadDirResource" />
+ </bean>
+    
+  <bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+	  <constructor-arg>
+	    <value>C:/Users/yongyi/git/Board/project02/src/main/webapp/file/</value>
+	  </constructor-arg>
+	</bean>
 </beans>
 
 

@@ -21,9 +21,103 @@
     <result column="rcre_dt" property="rcreateDate"/>
     <result column="ruser_name" property="ruser"/>
     <result column="rp" property="rp"/>
+    <!-- 파일 -->
+    <result column="fileName" property="fileName"/>
+    <result column="upfile" property="upFile" jdbcType="BLOB" javaType="java.lang.String"/>
   </resultMap>
   
-<!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL -->
+<!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON -->
+<!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON -->
+<!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM boards 
+    WHERE bno=#{no}
+  </delete>
+  
+  <select id="checkPwd" resultMap="boardMap" parameterType="map">
+		SELECT *
+		FROM boards
+		WHERE bno = #{bno}
+  </select>
+  
+  <select id="selectOne" resultMap="boardMap" parameterType="int">
+    SELECT bno, title, content, user_name, cre_dt, pwd, fileName
+    FROM boards
+    WHERE bno=#{value} 
+  </select>
+  
+<!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle -->
+<!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle -->
+<!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle -->
+	
+  <select id="selectList" resultMap="boardMap" parameterType="map">
+  	SELECT * FROM (
+		SELECT ROWNUM rowno,v.bno,v.title,v.user_name,v.cre_dt,NVL(v.rp,'0') rp, v.totalcount
+	  	FROM
+			(SELECT b1.bno bno, b1.title title, b1.user_name user_name, 
+			b1.cre_dt cre_dt, b2.totalcount totalcount, NVL(r.rp,'0') rp
+	    		FROM boards b1,
+	        (SELECT bno,COUNT(rno) rp FROM replys GROUP BY bno) r,
+	        (SELECT COUNT(bno) totalcount FROM boards) b2
+	        WHERE b1.bno = r.bno(+)
+	        ORDER BY bno DESC) v
+	     ) vt
+    WHERE vt.rowno between #{startIndex} and #{len}
+  </select>
+  
+  <select id="searchList" resultMap="boardMap" parameterType="map">
+    SELECT * FROM (
+		SELECT ROWNUM rowno,v.bno,v.title,v.user_name,v.cre_dt,NVL(v.rp,'0') rp, v.totalcount
+	  	FROM
+			(SELECT b1.bno bno, b1.title title, b1.user_name user_name, b1.cre_dt cre_dt,
+			 b2.totalcount totalcount, NVL(r.rp,'0') rp
+	    	FROM boards b1,
+	        (SELECT bno,COUNT(rno) rp FROM replys GROUP BY bno) r,
+	        (SELECT COUNT(bno) totalcount FROM boards) b2
+	        WHERE b1.bno = r.bno(+)
+			    	<if test="sValue eq 'sTitle'">
+			    	AND title Like '%'||#{sWord}||'%'
+			    </if>
+			    <if test="sValue eq 'sUser'">
+				    AND user_name Like '%'||#{sWord}||'%'
+			    </if>
+			    <if test="sValue eq 'sDate'">
+				    AND cre_dt Like '%'||#{sWord}||'%'
+			    </if>
+	        ORDER BY bno DESC) v
+	     ) vt
+    WHERE vt.rowno between #{startIndex} and #{len}
+  </select>
+  
+  <select id="replyList" resultMap="boardMap" parameterType="map">
+    SELECT b1.bno, r1.ruser_name, r1.rcontent, r1.rcre_dt, r1.rno 
+	FROM replys r1, boards b1
+	WHERE r1.bno = b1.bno
+	AND r1.bno = #{no}
+	ORDER BY r1.rno DESC
+  </select>
+  
+   <insert id="insert" parameterType="board">
+    INSERT INTO boards(bno, title, content, user_name, cre_dt, fileName,  pwd)
+    VALUES(seq_boards_bno.nextval,#{title}, #{content}, #{user}, SYSDATE, #{fileName}, #{pwd})
+  </insert>
+  
+  <insert id="insertReply" parameterType="board">
+    INSERT INTO replys(rno, bno, rcontent, ruser_name, rcre_dt)
+    VALUES(seq_boards_bno.nextval, #{no}, #{rcontent}, #{ruser}, SYSDATE)
+  </insert>
+  
+  <update id="update" parameterType="board">
+    UPDATE boards SET
+      title=#{title},
+      content=#{content},
+      user_name=#{user},
+      cre_dt=SYSDATE
+    WHERE bno=#{no}
+  </update>
+  
+  
+  <!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL -->
 <!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL -->
 <!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL --><!-- MySQL -->
 
@@ -85,94 +179,4 @@
     INSERT INTO replys(bno, rcontent, ruser_name, rcre_dt)
     VALUES(#{no}, #{rcontent}, #{ruser}, now())
   </insert> -->
-  
-<!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON -->
-<!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON -->
-<!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON -->
-  <delete id="delete" parameterType="int">
-    DELETE FROM boards 
-    WHERE bno=#{no}
-  </delete>
-  
-  <select id="checkPwd" resultMap="boardMap" parameterType="map">
-		SELECT *
-		FROM boards
-		WHERE bno = #{bno}
-  </select>
-  
-  <select id="selectOne" resultMap="boardMap" parameterType="int">
-    SELECT bno, title, content, user_name, cre_dt, pwd
-    FROM boards
-    WHERE bno=#{value} 
-  </select>
-  
-<!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle -->
-<!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle -->
-<!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle --><!-- Oracle -->
-	
-  <select id="selectList" resultMap="boardMap" parameterType="map">
-  	SELECT * FROM (
-		SELECT ROWNUM rowno,v.bno,v.title,v.user_name,v.cre_dt,NVL(v.rp,'0') rp, v.totalcount
-	  	FROM
-			(SELECT b1.bno bno, b1.title title, b1.user_name user_name, b1.cre_dt cre_dt, b2.totalcount totalcount, NVL(r.rp,'0') rp
-	    		FROM boards b1,
-	        (SELECT bno,COUNT(rno) rp FROM replys GROUP BY bno) r,
-	        (SELECT COUNT(bno) totalcount FROM boards) b2
-	        WHERE b1.bno = r.bno(+)
-	        ORDER BY bno DESC) v
-	     ) vt
-    WHERE vt.rowno between #{startIndex} and #{len}
-  </select>
-  
-  <select id="searchList" resultMap="boardMap" parameterType="map">
-    SELECT * FROM (
-		SELECT ROWNUM rowno,v.bno,v.title,v.user_name,v.cre_dt,NVL(v.rp,'0') rp, v.totalcount
-	  	FROM
-			(SELECT b1.bno bno, b1.title title, b1.user_name user_name, b1.cre_dt cre_dt,
-			 b2.totalcount totalcount, NVL(r.rp,'0') rp
-	    	FROM boards b1,
-	        (SELECT bno,COUNT(rno) rp FROM replys GROUP BY bno) r,
-	        (SELECT COUNT(bno) totalcount FROM boards) b2
-	        WHERE b1.bno = r.bno(+)
-			    	<if test="sValue eq 'sTitle'">
-			    	AND title Like '%'||#{sWord}||'%'
-			    </if>
-			    <if test="sValue eq 'sUser'">
-				    AND user_name Like '%'||#{sWord}||'%'
-			    </if>
-			    <if test="sValue eq 'sDate'">
-				    AND cre_dt Like '%'||#{sWord}||'%'
-			    </if>
-	        ORDER BY bno DESC) v
-	     ) vt
-    WHERE vt.rowno between #{startIndex} and #{len}
-  </select>
-  
-  <select id="replyList" resultMap="boardMap" parameterType="map">
-    SELECT b1.bno, r1.ruser_name, r1.rcontent, r1.rcre_dt, r1.rno 
-	FROM replys r1, boards b1
-	WHERE r1.bno = b1.bno
-	AND r1.bno = #{no}
-	ORDER BY r1.rno DESC
-  </select>
-  
-   <insert id="insert" parameterType="board">
-    INSERT INTO boards(bno, title, content, user_name, cre_dt, pwd)
-    VALUES(seq_boards_bno.nextval,#{title}, #{content}, #{user}, SYSDATE, #{pwd})
-  </insert>
-  
-  <insert id="insertReply" parameterType="board">
-    INSERT INTO replys(rno, bno, rcontent, ruser_name, rcre_dt)
-    VALUES(seq_boards_bno.nextval, #{no}, #{rcontent}, #{ruser}, SYSDATE)
-  </insert>
-  
-  <update id="update" parameterType="board">
-    UPDATE boards SET
-      title=#{title},
-      content=#{content},
-      user_name=#{user},
-      cre_dt=SYSDATE
-    WHERE bno=#{no}
-  </update>
-  
 </mapper>

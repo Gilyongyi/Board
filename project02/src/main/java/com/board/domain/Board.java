@@ -3,6 +3,8 @@ package com.board.domain;
 import java.io.Serializable;
 import java.sql.Date;
 
+import oracle.sql.BLOB;
+
 public class Board implements Serializable {
 	// 직렬화(바이트 배열로 변환하여 출력)할 때 데이터의 버전 정보를 기록하기 위함.
 	// => 역직렬화(바이트 배열을 읽어 객체로 만들기)하는 쪽에서 
@@ -15,7 +17,6 @@ public class Board implements Serializable {
 	private String user;		//게시물 작성자
 	private int totalCount;		//게시물 총 갯수
 	private String pwd;			//게시물 비밀번호
-	
 	private String sValue;		//검색 조건
 	private String sWord;		//검색어
 	
@@ -25,25 +26,10 @@ public class Board implements Serializable {
 	private String ruser;		//댓글 작성자
 	private int rp;				//댓글 갯수
 	
+	private BLOB upFile;
+	private String fileName;
 	
-	public String getPwd() {
-		return pwd;
-	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-	public int getTotalCount() {
-		return totalCount;
-	}
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-	public int getRp() {
-		return rp;
-	}
-	public void setRp(int rp) {
-		this.rp = rp;
-	}
+
 	public int getNo() {
 		return no;
 	}
@@ -73,6 +59,18 @@ public class Board implements Serializable {
 	}
 	public void setUser(String user) {
 		this.user = user;
+	}
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+	public String getPwd() {
+		return pwd;
+	}
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 	public String getsValue() {
 		return sValue;
@@ -110,12 +108,30 @@ public class Board implements Serializable {
 	public void setRuser(String ruser) {
 		this.ruser = ruser;
 	}
+	public int getRp() {
+		return rp;
+	}
+	public void setRp(int rp) {
+		this.rp = rp;
+	}
+	public BLOB getUpFile() {
+		return upFile;
+	}
+	public void setUpFile(BLOB upFile) {
+		this.upFile = upFile;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	@Override
 	public String toString() {
 		return "Board [no=" + no + ", title=" + title + ", content=" + content + ", createdDate=" + createdDate
 				+ ", user=" + user + ", totalCount=" + totalCount + ", pwd=" + pwd + ", sValue=" + sValue + ", sWord="
 				+ sWord + ", rno=" + rno + ", rcontent=" + rcontent + ", rcreateDate=" + rcreateDate + ", ruser="
-				+ ruser + ", rp=" + rp + "]";
+				+ ruser + ", rp=" + rp + ", upFile=" + upFile + ", fileName=" + fileName + "]";
 	}
 	
 	
