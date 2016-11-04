@@ -1,5 +1,6 @@
 package com.board.controller.json;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -59,13 +60,30 @@ public class BoardController {
       produces="application/json;charset=UTF-8")
   @ResponseBody
   public String add(Board board) {
+	  System.out.println("Controller add method start.....");
     HashMap<String,Object> result = new HashMap<>();
+    
+    MultipartFile upFile = board.getUpFile();
+	System.out.println("upFile : "+upFile);
+	
     try {
-    	System.out.println("Board : "+board);
+    	if(null!=upFile){
+    		String fileName = upFile.getOriginalFilename();
+    		System.out.println("FileName : "+fileName);
+    		board.setFileName(fileName);
+    		System.out.println("board:"+board.getFileName());
+    		File uploadFile = new File("C:\\Users\\yongyi\\git\\Board\\project02\\src\\main\\webapp\\file\\"+fileName);
+    		upFile.transferTo(uploadFile);
+    		System.out.println("filePath : " +uploadFile);
+    	}else{
+    		board.setFileName("첨부파일 없음..");
+    	}
     	boardService.addBoard(board);
     	result.put("status", "success");
+    	System.out.println("success");
     	}catch (Exception e) {
     	result.put("status", "failure");
+    	System.out.println("fail");
     	}
     return new Gson().toJson(result);
   }

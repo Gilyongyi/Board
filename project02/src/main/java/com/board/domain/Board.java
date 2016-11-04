@@ -3,7 +3,7 @@ package com.board.domain;
 import java.io.Serializable;
 import java.sql.Date;
 
-import oracle.sql.BLOB;
+import org.springframework.web.multipart.MultipartFile;
 
 public class Board implements Serializable {
 	// 직렬화(바이트 배열로 변환하여 출력)할 때 데이터의 버전 정보를 기록하기 위함.
@@ -26,10 +26,9 @@ public class Board implements Serializable {
 	private String ruser;		//댓글 작성자
 	private int rp;				//댓글 갯수
 	
-	private BLOB upFile;
 	private String fileName;
+	private MultipartFile upFile;
 	
-
 	public int getNo() {
 		return no;
 	}
@@ -114,25 +113,24 @@ public class Board implements Serializable {
 	public void setRp(int rp) {
 		this.rp = rp;
 	}
-	public BLOB getUpFile() {
-		return upFile;
-	}
-	public void setUpFile(BLOB upFile) {
-		this.upFile = upFile;
-	}
 	public String getFileName() {
 		return fileName;
 	}
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	public MultipartFile getUpFile() {
+		return upFile;
+	}
+	public void setUpFile(MultipartFile upFile) {
+		this.upFile = upFile;
+	}
 	@Override
 	public String toString() {
 		return "Board [no=" + no + ", title=" + title + ", content=" + content + ", createdDate=" + createdDate
 				+ ", user=" + user + ", totalCount=" + totalCount + ", pwd=" + pwd + ", sValue=" + sValue + ", sWord="
 				+ sWord + ", rno=" + rno + ", rcontent=" + rcontent + ", rcreateDate=" + rcreateDate + ", ruser="
-				+ ruser + ", rp=" + rp + ", upFile=" + upFile + ", fileName=" + fileName + "]";
+				+ ruser + ", rp=" + rp + ", fileName=" + fileName + ", upFile=" + upFile + "]";
 	}
-	
 	
 }

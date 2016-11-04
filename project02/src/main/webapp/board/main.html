@@ -15,10 +15,10 @@
 <body>
 	<div class="container">
 		<div class="y-banner">
-			<a href="http://localhost:8080/project02/board/main.html" style="text-decoration: none">
-			<span
+			<a href="http://localhost:8080/project02/board/main.html"
+				style="text-decoration: none"> <span
 				style="font-size: 25pt; font-weight: bold; color: white; margin-left: 10px;">Yong
-				Board</span></a>
+					Board</span></a>
 		</div>
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
@@ -29,146 +29,170 @@
 				<h3>개인프로젝트</h3>
 				<h3>프로젝트 내용 : 게시판 만들기</h3>
 				<h3>요구사항</h3>
-				<h3>&nbsp;&nbsp;- 기본적인 CRUD, 페이징 처리, 검색, <span style="color:red;">파일업로드</span>, 댓글</h3>
+				<h3>
+					&nbsp;&nbsp;- 기본적인 CRUD, 페이징 처리, 검색, <span style="color: red;">파일업로드</span>,
+					댓글
+				</h3>
 				<h3>기간 : 2016.10.24(월) ~ 2016.11.10(목)</h3>
 				<h3>사용기술</h3>
-				<h3>&nbsp;&nbsp;- Java , HTML5, CSS3, JavaScript, jQuery, Handlebars, Bootstrap</h3>
+				<h3>&nbsp;&nbsp;- Java , HTML5, CSS3, JavaScript, jQuery,
+					Handlebars, Bootstrap</h3>
 				<h3>사용 Tool</h3>
-				<h3>&nbsp;&nbsp;- Eclipse, Gradle, exERD, MySQL Workbench, Oracle Developer</h3>
+				<h3>&nbsp;&nbsp;- Eclipse, Gradle, exERD, MySQL Workbench,
+					Oracle Developer</h3>
 				<h3>사용 DBMS</h3>
 				<h3>&nbsp;&nbsp;- Oracle11g, MySQL</h3>
 				<h3>특징</h3>
 				<h3>&nbsp;&nbsp;- 회원가입이 필요없는 자유게시판</h3>
 				<h3>&nbsp;&nbsp;- 게시물 비밀번호로 글 수정 / 삭제</h3>
 				<h3>&nbsp;&nbsp;- HTML만을 사용하여 Back-end와 Front-end를 완벽히 나눔.</h3>
-				<h3>&nbsp;&nbsp;- 모든 데이터는 JSON 데이터로 주고 받음. Restful Server로 View 만 바꿔준다면 재사용 가능</h3>
+				<h3>&nbsp;&nbsp;- 모든 데이터는 JSON 데이터로 주고 받음. Restful Server로 View
+					만 바꿔준다면 재사용 가능</h3>
 				<h3>&nbsp;&nbsp;- MySQL ,Oracle 두가지 DBMS 사용가능</h3>
 				<h3>&nbsp;&nbsp;- ajax를 이용한 리로딩 없는 페이지</h3>
 				<h3>&nbsp;&nbsp;- 무한스크롤 페이징 처리</h3>
 			</div>
 			<div id="menu1" class="tab-pane fade">
 				<!-- 게시물 상세보기 -->
-					<form class="form-horizontal" id="formDetail">
-						<h2><span style="font-size:30px;">상 세 보 기</span></h2>
-						<div class="form-group view-form y-hidden">
-							<input type="hidden" id="getBoardNo" value="">
-							<label class="col-sm-2 control-label" style="font-size:30px;">번 호</label>
-							<div class="col-sm-10">
-								<p id="fNoView" class="form-control-static"></p>
-							</div>
+				<form class="form-horizontal" id="formDetail">
+					<h2>
+						<span style="font-size: 30px;">상 세 보 기</span>
+					</h2>
+					<div class="form-group view-form y-hidden">
+						<input type="hidden" id="getBoardNo" value=""> <label
+							class="col-sm-2 control-label" style="font-size: 30px;">번
+							호</label>
+						<div class="col-sm-10">
+							<p id="fNoView" class="form-control-static"></p>
 						</div>
-						<div class="form-group">
-							<label for="fTitle" class="col-sm-2 control-label" style="font-size:30px;">제 목</label>
-							<div class="col-sm-8">
-								<p id="fTitleView" class="form-control-static"></p>
-							</div>
+					</div>
+					<div class="form-group">
+						<label for="fTitle" class="col-sm-2 control-label"
+							style="font-size: 30px;">제 목</label>
+						<div class="col-sm-8">
+							<p id="fTitleView" class="form-control-static"></p>
 						</div>
-						<div class="form-group">
-							<label for="fContent" class="col-sm-2 control-label" style="font-size:30px;">내 용</label>
-							<div class="col-sm-8">
-								<p id="fContentView" class="form-control-static"></p>
-							</div>
+					</div>
+					<div class="form-group">
+						<label for="fContent" class="col-sm-2 control-label"
+							style="font-size: 30px;">내 용</label>
+						<div class="col-sm-8">
+							<p id="fContentView" class="form-control-static"></p>
 						</div>
-						<div class="form-group">
-							<label for="fUser" class="col-sm-2 control-label" style="font-size:30px;">작 성 자</label>
-							<div class="col-sm-8">
-								<p id="fUserView" class="form-control-static"></p>
-							</div>
+					</div>
+					<div class="form-group">
+						<label for="fUser" class="col-sm-2 control-label"
+							style="font-size: 30px;">작 성 자</label>
+						<div class="col-sm-8">
+							<p id="fUserView" class="form-control-static"></p>
 						</div>
-						<div class="form-group view-form y-hidden">
-							<label class="col-sm-2 control-label" style="font-size:30px;">등 록 일</label>
-							<div class="col-sm-10">
-								<p id="fCreatedDateView" class="form-control-static"></p>
-							</div>
+					</div>
+					<div class="form-group view-form y-hidden">
+						<label class="col-sm-2 control-label" style="font-size: 30px;">등
+							록 일</label>
+						<div class="col-sm-10">
+							<p id="fCreatedDateView" class="form-control-static"></p>
 						</div>
-						<div class="form-group view-form y-hidden">
-							<label class="col-sm-2 control-label" style="font-size:30px;">첨부 파일</label>
-							<div class="col-sm-10">
-								<p id="fFileNameView" class="form-control-static"></p>
-							</div>
+					</div>
+					<div class="form-group view-form y-hidden">
+						<label class="col-sm-2 control-label" style="font-size: 30px;">첨부
+							파일</label>
+						<div class="col-sm-10">
+							<p id="fFileNameView" class="form-control-static"></p>
 						</div>
-						<div class="form-group">
-							<label for="fPwdView" class="col-sm-2 control-label" style="font-size:30px;">비밀번호</label>
-							<div class="col-sm-4">
-								<input type="text" id="fPwdView" class="form-control" 
+					</div>
+					<div class="form-group">
+						<label for="fPwdView" class="col-sm-2 control-label"
+							style="font-size: 30px;">비밀번호</label>
+						<div class="col-sm-4">
+							<input type="text" id="fPwdView" class="form-control"
 								placeholder="비밀번호 입력 성공 = 편집 버튼 생성" autocomplete=off>
-							</div>
-							<div class="col-sm-6">
-								<button type="button" class="btn btn-danger" id="detailEdit">편집</button>
-							</div>
-							<div>
-								<span id="detailEditFailed">비밀번호가 일치하지 않습니다.</span>
-							</div>
 						</div>
-						<hr/>
-						<div class="reply-slot">
-							<h2 id="open-reply">댓 글</h2>
+						<div class="col-sm-6">
+							<button type="button" class="btn btn-danger" id="detailEdit">편집</button>
 						</div>
-					</form>
-					<form class="form-reply">
-					  <div class="form-group col-md-2 col-md-offset-1">
-					    <label class="sr-only" for="replyUser">replyUser</label>
-					    <input type="text" class="form-control" id="replyUser" placeholder="닉네임을 입력해주세요">
-					  </div>
-					  <div class="form-group col-md-6">
-					    <label class="sr-only" for="replyContent">replyContent</label>
-					    <input type="text" class="form-control" id="replyContent" placeholder="댓글을 입력해주세요">
-					  </div>
-					  <div class="col-md-3">
-					  	<button type="button" id="addReplyBtn" class="btn btn-primary">댓글 입력</button>
-					  </div>
-					</form>
-					<hr/>
+						<div>
+							<span id="detailEditFailed">비밀번호가 일치하지 않습니다.</span>
+						</div>
+					</div>
+					<hr />
+					<div class="reply-slot">
+						<h2 id="open-reply">댓 글</h2>
+					</div>
+				</form>
+				<form class="form-reply">
+					<div class="form-group col-md-2 col-md-offset-1">
+						<label class="sr-only" for="replyUser">replyUser</label> <input
+							type="text" class="form-control" id="replyUser"
+							placeholder="닉네임을 입력해주세요">
+					</div>
+					<div class="form-group col-md-6">
+						<label class="sr-only" for="replyContent">replyContent</label> <input
+							type="text" class="form-control" id="replyContent"
+							placeholder="댓글을 입력해주세요">
+					</div>
+					<div class="col-md-3">
+						<button type="button" id="addReplyBtn" class="btn btn-primary">댓글
+							입력</button>
+					</div>
+				</form>
+				<hr />
 				<!-- 게시물 상세보기 end -->
 				<!-- 글쓰기 -->
 				<div id="formPage">
-					<h2 style="font-size:30px;">글 쓰 기</h2>
-					<form class="form-horizontal" id="formEdit" method="POST" enctype="multipart/form-data">
+					<h2 style="font-size: 30px;">글 쓰 기</h2>
+					<form class="form-horizontal" method="post" enctype="multipart/form-data" id="formEdit">
 						<div class="form-group view-form y-hidden">
-							<label class="col-sm-2 control-label" style="font-size:30px;">번호</label>
+							<label class="col-sm-2 control-label" style="font-size: 30px;">번호</label>
 							<div class="col-sm-10">
 								<p id="fNo" class="form-control-static"></p>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="fTitle" class="col-sm-2 control-label" style="font-size:30px;">제목</label>
+							<label for="fTitle" class="col-sm-2 control-label"
+								style="font-size: 30px;">제목</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="fTitle" style="font-size:30px;"
-									autocomplete=off placeholder="제목을 입력하세요.">
+								<input type="text" class="form-control" id="fTitle" name="title"
+									style="font-size: 30px;" autocomplete=off
+									placeholder="제목을 입력하세요.">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="fContent" class="col-sm-2 control-label" style="font-size:30px;">내용</label>
+							<label for="fContent" class="col-sm-2 control-label"
+								style="font-size: 30px;">내용</label>
 							<div class="col-sm-8">
-								<textarea id="fContent" class="form-control" rows="3" style="font-size:30px;"
-									autocomplete=off placeholder="내용을 입력하세요."></textarea>
+								<textarea id="fContent" class="form-control" rows="3"
+									style="font-size: 30px;" autocomplete=off name="content"
+									placeholder="내용을 입력하세요."></textarea>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="fUser" class="col-sm-2 control-label" style="font-size:30px;">작성자</label>
+							<label for="fUser" class="col-sm-2 control-label"
+								style="font-size: 30px;">작성자</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="fUser" style="font-size:30px;"
-									autocomplete=off placeholder="작성자를 입력하세요.">
+								<input type="text" class="form-control" id="fUser"
+									style="font-size: 30px;" autocomplete=off name="user"
+									placeholder="작성자를 입력하세요.">
 							</div>
 						</div>
-						 <div class="form-group">
-						    <label for="inputFile" class="col-sm-2 control-label" style="font-size:30px;">첨부 파일</label>
-						    <div class="col-sm-6">
-						    	<input type="file" class="form-control"	id="upFile" name="upFile">
-						  	</div>
-						  	<div class="col-sm-2">
-							  	<input type="submit" class="form-control" value="업로드">
-						  	</div>
-						  </div>
+						<div class="form-group">
+							<label for="fupFile" class="col-sm-2 control-label"
+								style="font-size: 30px;">첨부 파일</label>
+							<div class="col-sm-8">
+								<input type="file" class="form-control" id="fUpFile" name="upFile">
+							</div>
+						</div>
 						<div class="form-group" id="fPwdEdit">
-							<label for="fPwd" class="col-sm-2 control-label" style="font-size:30px;">비밀번호</label>
+							<label for="fPwd" class="col-sm-2 control-label"
+								style="font-size: 30px;">비밀번호</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="fPwd" style="font-size:30px;"
-									autocomplete=off placeholder="비밀번호를 입력하세요.">
+								<input type="text" class="form-control" id="fPwd"
+									style="font-size: 30px;" autocomplete=off name="pwd"
+									placeholder="비밀번호를 입력하세요.">
 							</div>
 						</div>
 						<div class="form-group view-form y-hidden">
-							<label class="col-sm-2 control-label" style="font-size:30px;">등록일</label>
+							<label class="col-sm-2 control-label" style="font-size: 30px;">등록일</label>
 							<div class="col-sm-10">
 								<p id="fCreatedDate" class="form-control-static"></p>
 							</div>
@@ -193,17 +217,18 @@
 					<h2 class="basicList" id="totalCount">글 목 록</h2>
 					<div class="col-md-2 col-md-offset-1">
 						<select name="sValue" id="sValue" class="form-control">
-						  <option value="sTitle">제 목</option>
-						  <option value="sUser">작 성 자</option>
-						  <option value="createdDate">등 록 일</option>
+							<option value="sTitle">제 목</option>
+							<option value="sUser">작 성 자</option>
+							<option value="createdDate">등 록 일</option>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
-						<input type="text" id="sWord" class="form-control" placeholder="검색어를 입력해주세요">
+						<input type="text" id="sWord" class="form-control"
+							placeholder="검색어를 입력해주세요">
 					</div>
 					<div class="col-md-3">
-						<button type="button" id="searchBtn"class="btn btn-primary">검색</button>
-						<button type="button" id="writeBtn"class="btn btn-primary">새 글쓰기</button>
+						<button type="button" id="searchBtn" class="btn btn-primary">검색</button>
+						<button type="button" id="writeBtn" class="btn btn-primary">글쓰기</button>
 					</div>
 				</div>
 				<div id="listPage">
@@ -227,7 +252,6 @@
 				<div id="footer"></div>
 			</div>
 		</div>
-		<!-- 글 목록 end -->
 	</div>
 	<!-- List template -->
 	<script id="tr-template" type="text/x-handlebars-template">

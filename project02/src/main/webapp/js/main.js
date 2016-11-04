@@ -39,7 +39,7 @@ function loadBoards() {
 				alert('loadboards 실행 중 오류 발생!');
 				return;
 			}
-			console.log(result.data);			//result 값 console
+			console.log("BoardList : "+result.data);			//result 값 console
 			$('#totalCount').text('총 게 시 물 : '+result.data[0].totalCount+'개');		//게시물 총 갯수
 			$('#resetBtn').click();				//reset 버튼
 			$('#boardTbl > tbody').append(template(result));	//위에서 지운거 다시 추가
@@ -52,6 +52,8 @@ function loadBoards() {
 
 //게시물 추가하기
 $('#addBtn').click(function() {
+	var formData = JSON.parse(JSON.stringify(jQuery('#formEdit').serializeArray()));
+	console.log(formData);
 	if( $('#fContent').val() == null || $('#fContent').val() ==''){
 		alert('내용을 입력하지 않았습니다.');
 		return false;
@@ -67,16 +69,11 @@ $('#addBtn').click(function() {
 	}
 	
 	$.ajax({
-		url: contextRoot + 'board/add.json',	//URL
-		method: 'post',							//http protocol post 방식
-		data: {
-			title:$('#fTitle').val(), 
-			content:$('#fContent').val(),
-			user:$('#fUser').val(),
-			fileName:$('#upFile').val(),
-			pwd:$('#fPwd').val()
-		},
-		dataType: 'json',						//json 데이터 주고받음
+		type : "POST",
+		url : contextRoot + 'board/add.json',
+		data : formData,
+		cache : false,
+		dataType: 'json',
 		success: function(result) {
 			if (result.status != 'success') {
 				alert('게시물 등록 오류입니다.');
@@ -87,9 +84,35 @@ $('#addBtn').click(function() {
 			loadBoards(); 
 		},
 		error: function() {
+			console.log(formData);
 			alert('서버 요청 오류!');
 		}
-	});
+	})
+	
+	/*	$.ajax({
+	url: contextRoot + 'board/add.json',	//URL
+	method: 'post',							//http protocol post 방식
+	data: {
+		title:$('#fTitle').val(), 
+		content:$('#fContent').val(),
+		user:$('#fUser').val(),
+		upFile:$('#fUpFile').val(),
+		pwd:$('#fPwd').val()
+	},
+	dataType: 'json',						//json 데이터 주고받음
+	success: function(result) {
+		if (result.status != 'success') {
+			alert('게시물 등록 오류입니다.');
+			return;
+		}
+		$('#boardTbl > tbody').append(template(result));
+		pageNo=1;
+		loadBoards(); 
+	},
+	error: function() {
+		alert('서버 요청 오류!');
+	}
+});*/
 });
 
 //게시물 상세보기
