@@ -55,9 +55,9 @@ public class BoardController {
   }
   
   @RequestMapping(
-      path="add", 
-      method=RequestMethod.POST,
-      produces="application/json;charset=UTF-8"
+      path="add" 
+      ,method=RequestMethod.POST
+      //,produces="application/json;charset=UTF-8"
       )
   @ResponseBody
   public String add(Board board) {

@@ -51,7 +51,11 @@ function loadBoards() {
 
 //게시물 추가하기
 $('#addBtn').click(function() {
-	var formData = JSON.parse(JSON.stringify(jQuery('#formEdit').serializeArray()));
+	var form = $('#formEdit');
+	var formData = JSON.parse(JSON.stringify($('#formEdit').serializeArray()));
+	var formFile = JSON.parse(JSON.stringify($('#formEdit')));
+	console.log(form);
+	console.log(formFile);
 	console.log("전송된 Json - formData : "+formData);
 	if( $('#fContent').val() == null || $('#fContent').val() ==''){
 		alert('내용을 입력하지 않았습니다.');
@@ -71,7 +75,6 @@ $('#addBtn').click(function() {
 		type : "POST",
 		url : contextRoot + 'board/add.json',
 		data : formData,
-		contentType : false,
 		cache : false,
 		dataType: 'json',
 		success: function(result) {
