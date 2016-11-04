@@ -39,7 +39,6 @@ function loadBoards() {
 				alert('loadboards 실행 중 오류 발생!');
 				return;
 			}
-			console.log("BoardList : "+result.data);			//result 값 console
 			$('#totalCount').text('총 게 시 물 : '+result.data[0].totalCount+'개');		//게시물 총 갯수
 			$('#resetBtn').click();				//reset 버튼
 			$('#boardTbl > tbody').append(template(result));	//위에서 지운거 다시 추가
@@ -53,7 +52,7 @@ function loadBoards() {
 //게시물 추가하기
 $('#addBtn').click(function() {
 	var formData = JSON.parse(JSON.stringify(jQuery('#formEdit').serializeArray()));
-	console.log(formData);
+	console.log("전송된 Json - formData : "+formData);
 	if( $('#fContent').val() == null || $('#fContent').val() ==''){
 		alert('내용을 입력하지 않았습니다.');
 		return false;
@@ -72,6 +71,7 @@ $('#addBtn').click(function() {
 		type : "POST",
 		url : contextRoot + 'board/add.json',
 		data : formData,
+		contentType : false,
 		cache : false,
 		dataType: 'json',
 		success: function(result) {
@@ -84,7 +84,6 @@ $('#addBtn').click(function() {
 			loadBoards(); 
 		},
 		error: function() {
-			console.log(formData);
 			alert('서버 요청 오류!');
 		}
 	})

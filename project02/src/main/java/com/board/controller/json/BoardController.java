@@ -57,12 +57,13 @@ public class BoardController {
   @RequestMapping(
       path="add", 
       method=RequestMethod.POST,
-      produces="application/json;charset=UTF-8")
+      produces="application/json;charset=UTF-8"
+      )
   @ResponseBody
   public String add(Board board) {
 	  System.out.println("Controller add method start.....");
     HashMap<String,Object> result = new HashMap<>();
-    
+    System.out.println("Board : "+board);
     MultipartFile upFile = board.getUpFile();
 	System.out.println("upFile : "+upFile);
 	
