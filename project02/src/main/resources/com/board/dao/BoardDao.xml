@@ -22,7 +22,7 @@
     <result column="ruser_name" property="ruser"/>
     <result column="rp" property="rp"/>
     <!-- 파일 -->
-    <result column="fileName" property="fileName" jdbcType="VARCHAR"/>
+    <result column="file_name" property="fileName" jdbcType="VARCHAR"/>
   </resultMap>
   
 <!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON --><!-- MySQL Oracle COMMON -->
@@ -40,7 +40,7 @@
   </select>
   
   <select id="selectOne" resultMap="boardMap" parameterType="int">
-    SELECT bno, title, content, user_name, cre_dt, pwd, fileName
+    SELECT bno, title, content, user_name, cre_dt, pwd, file_name
     FROM boards
     WHERE bno=#{value} 
   </select>
@@ -97,7 +97,7 @@
   </select>
   
    <insert id="insert" parameterType="board">
-    INSERT INTO boards(bno, title, content, user_name, cre_dt, fileName, pwd)
+    INSERT INTO boards(bno, title, content, user_name, cre_dt, file_name, pwd)
     VALUES(seq_boards_bno.nextval,#{title}, #{content}, #{user}, SYSDATE, #{fileName}, #{pwd})
   </insert>
   

@@ -51,12 +51,6 @@ function loadBoards() {
 
 //게시물 추가하기
 $('#addBtn').click(function() {
-	var form = $('#formEdit');
-	var formData = JSON.parse(JSON.stringify($('#formEdit').serializeArray()));
-	var formFile = JSON.parse(JSON.stringify($('#formEdit')));
-	console.log(form);
-	console.log(formFile);
-	console.log("전송된 Json - formData : "+formData);
 	if( $('#fContent').val() == null || $('#fContent').val() ==''){
 		alert('내용을 입력하지 않았습니다.');
 		return false;
@@ -70,13 +64,19 @@ $('#addBtn').click(function() {
 		alert('비밀번호를 입력하지 않았습니다.')
 		return false;
 	}
-	
-	$.ajax({
+	console.log($("input[name=title").val());
+	console.log($("textarea[name=content").val());
+	console.log($("input[name=user").val());
+	console.log($("input[name=upFile]")[0].files[0]);
+	console.log($("input[name=pwd").val());
+	/*$("#formEdit").ajaxForm({
 		type : "POST",
 		url : contextRoot + 'board/add.json',
-		data : formData,
+		processData: false,
+        contentType: false,
+		//data : formData,
 		cache : false,
-		dataType: 'json',
+		//dataType: 'json',
 		success: function(result) {
 			if (result.status != 'success') {
 				alert('게시물 등록 오류입니다.');
@@ -89,18 +89,20 @@ $('#addBtn').click(function() {
 		error: function() {
 			alert('서버 요청 오류!');
 		}
-	})
+	})*/
 	
-	/*	$.ajax({
+	$.ajax({
 	url: contextRoot + 'board/add.json',	//URL
 	method: 'post',							//http protocol post 방식
 	data: {
 		title:$('#fTitle').val(), 
 		content:$('#fContent').val(),
 		user:$('#fUser').val(),
-		upFile:$('#fUpFile').val(),
+		upFile:$("input[name=upFile]")[0].files[0],
 		pwd:$('#fPwd').val()
 	},
+	processData: false,
+    contentType: false,
 	dataType: 'json',						//json 데이터 주고받음
 	success: function(result) {
 		if (result.status != 'success') {
@@ -114,7 +116,7 @@ $('#addBtn').click(function() {
 	error: function() {
 		alert('서버 요청 오류!');
 	}
-});*/
+});
 });
 
 //게시물 상세보기

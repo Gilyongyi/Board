@@ -9,7 +9,7 @@ CREATE TABLE boards (
   user_name VARCHAR2(50) NOT NULL,
   cre_dt DATE NOT NULL,
   pwd VARCHAR2(30) NOT NULL,
-  upfile VARCHAR2(255),
+  file_name VARCHAR2(255),
   PRIMARY KEY(bno)
 );
 

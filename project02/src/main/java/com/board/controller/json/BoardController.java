@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,19 +57,19 @@ public class BoardController {
   
   @RequestMapping(
       path="add" 
-      ,method=RequestMethod.POST
+      //,method=RequestMethod.POST
       //,produces="application/json;charset=UTF-8"
       )
   @ResponseBody
   public String add(Board board) {
 	  System.out.println("Controller add method start.....");
     HashMap<String,Object> result = new HashMap<>();
-    System.out.println("Board : "+board);
-    MultipartFile upFile = board.getUpFile();
-	System.out.println("upFile : "+upFile);
+	MultipartFile upFile = board.getUpFile();
+    System.out.println("upFile : "+upFile);
 	
     try {
     	if(null!=upFile){
+    		System.out.println("File is exists...");
     		String fileName = upFile.getOriginalFilename();
     		System.out.println("FileName : "+fileName);
     		board.setFileName(fileName);
@@ -77,7 +78,10 @@ public class BoardController {
     		upFile.transferTo(uploadFile);
     		System.out.println("filePath : " +uploadFile);
     	}else{
-    		board.setFileName("첨부파일 없음..");
+    		System.out.println("File is not exists...");
+    		board.setFileName("file is not exists...");
+    		System.out.println("fileName:"+board.getFileName());
+    		System.out.println("board : " +board);
     	}
     	boardService.addBoard(board);
     	result.put("status", "success");
