@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,13 +56,14 @@ public class BoardController {
   
   @RequestMapping(
       path="add" 
-      //,method=RequestMethod.POST
+      ,method=RequestMethod.POST
       //,produces="application/json;charset=UTF-8"
       )
   @ResponseBody
   public String add(Board board) {
 	  System.out.println("Controller add method start.....");
     HashMap<String,Object> result = new HashMap<>();
+    System.out.println("Board : "+board);
 	MultipartFile upFile = board.getUpFile();
     System.out.println("upFile : "+upFile);
 	

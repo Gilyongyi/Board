@@ -64,43 +64,33 @@ $('#addBtn').click(function() {
 		alert('비밀번호를 입력하지 않았습니다.')
 		return false;
 	}
-	console.log($("input[name=title").val());
-	console.log($("textarea[name=content").val());
-	console.log($("input[name=user").val());
-	console.log($("input[name=upFile]")[0].files[0]);
-	console.log($("input[name=pwd").val());
-	/*$("#formEdit").ajaxForm({
-		type : "POST",
-		url : contextRoot + 'board/add.json',
-		processData: false,
-        contentType: false,
-		//data : formData,
-		cache : false,
-		//dataType: 'json',
-		success: function(result) {
-			if (result.status != 'success') {
-				alert('게시물 등록 오류입니다.');
-				return;
-			}
-			$('#boardTbl > tbody').append(template(result));
-			pageNo=1;
-			loadBoards(); 
-		},
-		error: function() {
-			alert('서버 요청 오류!');
-		}
-	})*/
+	var upFile = $("input[name=upFile]")[0].files[0];
+	var formData = new FormData();
+	
+	formData.append("title",$("input[name=title]").val());
+	formData.append("content",$("textarea[name=content]").val());
+	formData.append("user",$("input[name=user]").val());
+	formData.append("upFile",upFile);
+	formData.append("pwd",$("input[name=pwd]").val());
+	console.log(formData);
+	//console.log($("input[name=title]").val());
+	//console.log($("textarea[name=content]").val());
+	//console.log($("input[name=user]").val());
+	//console.log(upFile);
+	//console.log($("input[name=pwd]").val());
+	//console.log(upFile.name+"/"+upFile.lastModified+"/"+upFile.lastModifiedDate+"/"+upFile.size+"/"+upFile.type+"/"+upFile.webkitRelativePath);
 	
 	$.ajax({
 	url: contextRoot + 'board/add.json',	//URL
 	method: 'post',							//http protocol post 방식
-	data: {
+	data: formData 
+		/*{
 		title:$('#fTitle').val(), 
 		content:$('#fContent').val(),
 		user:$('#fUser').val(),
-		upFile:$("input[name=upFile]")[0].files[0],
+		upFile:upFile,
 		pwd:$('#fPwd').val()
-	},
+		}*/,
 	processData: false,
     contentType: false,
 	dataType: 'json',						//json 데이터 주고받음
