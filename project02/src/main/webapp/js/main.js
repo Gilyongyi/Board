@@ -64,33 +64,34 @@ $('#addBtn').click(function() {
 		alert('비밀번호를 입력하지 않았습니다.')
 		return false;
 	}
+	/*//file to json
 	var upFile = $("input[name=upFile]")[0].files[0];
-	var formData = new FormData();
-	
-	formData.append("title",$("input[name=title]").val());
-	formData.append("content",$("textarea[name=content]").val());
-	formData.append("user",$("input[name=user]").val());
-	formData.append("upFile",upFile);
-	formData.append("pwd",$("input[name=pwd]").val());
-	console.log(formData);
-	//console.log($("input[name=title]").val());
-	//console.log($("textarea[name=content]").val());
-	//console.log($("input[name=user]").val());
 	//console.log(upFile);
-	//console.log($("input[name=pwd]").val());
-	//console.log(upFile.name+"/"+upFile.lastModified+"/"+upFile.lastModifiedDate+"/"+upFile.size+"/"+upFile.type+"/"+upFile.webkitRelativePath);
+	var formData = new FormData();
+		formData.title =$("input[name=title]").val();
+		formData.content =$("textarea[name=content]").val();
+		formData.user =$("input[name=user]").val();
+		formData.upFile = {"upFile.name":upFile.name,
+							"upFile.lastModified":upFile.lastModified,
+							"upFile.lastModifiedDate":upFile.lastModifiedDate,
+							"upFile.size":upFile.size,
+							"upFile.webkitRelativePath":upFile.webkitRelativePath};
+		formData.pwd = $("input[name=pwd]").val();
+	var jsonFormData = JSON.stringify(formData);
+	
+	console.log(JSON.stringify(formData));
 	
 	$.ajax({
 	url: contextRoot + 'board/add.json',	//URL
 	method: 'post',							//http protocol post 방식
-	data: formData 
-		/*{
+	data: jsonFormData 
+		{
 		title:$('#fTitle').val(), 
 		content:$('#fContent').val(),
 		user:$('#fUser').val(),
 		upFile:upFile,
 		pwd:$('#fPwd').val()
-		}*/,
+		},
 	processData: false,
     contentType: false,
 	dataType: 'json',						//json 데이터 주고받음
@@ -106,7 +107,42 @@ $('#addBtn').click(function() {
 	error: function() {
 		alert('서버 요청 오류!');
 	}
-});
+});*/
+	var formData = JSON.parse(JSON.stringify($('#formEdit').serializeArray()));
+	console.log("formData : "+formData);
+	if( $('#fContent').val() == null || $('#fContent').val() ==''){
+		alert('내용을 입력하지 않았습니다.');
+		return false;
+	}else if($('#fTitle').val() == null || $('#fTitle').val() ==''){
+		alert('제목을 입력하지 않았습니다.');
+		return false;
+	}else if($('#fUser').val() == null || $('#fUser').val() == ''){
+		alert('작성자를 입력하지 않았습니다.');
+		return false;
+	}else if($('#fPwd').val() == null || $('#fPwd').val() ==''){
+		alert('비밀번호를 입력하지 않았습니다.')
+		return false;
+	}
+	
+	$.ajax({
+		type : "POST",
+		url : contextRoot + 'board/add.json',
+		data : formData,
+		cache : false,
+		dataType: 'json',
+		success: function(result) {
+			if (result.status != 'success') {
+				alert('게시물 등록 오류입니다.');
+				return;
+			}
+			$('#boardTbl > tbody').append(template(result));
+			pageNo=1;
+			loadBoards(); 
+		},
+		error: function() {
+			alert('서버 요청 오류!');
+		}
+	})
 });
 
 //게시물 상세보기
