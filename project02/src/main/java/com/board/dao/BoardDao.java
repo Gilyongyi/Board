@@ -18,6 +18,7 @@ public interface BoardDao {
 	//댓글
 	List<Board> replyList(Map<String,Object> params);	//Read List
 	void insertReply(Board board);
+	int deleteReply(int rno);
 }
 
 

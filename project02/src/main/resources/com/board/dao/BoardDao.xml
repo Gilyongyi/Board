@@ -33,6 +33,11 @@
     WHERE bno=#{no}
   </delete>
   
+  <delete id="deleteReply" parameterType="int">
+    DELETE FROM replys
+    WHERE rno=#{rno}
+  </delete>
+  
   <select id="checkPwd" resultMap="boardMap" parameterType="map">
 		SELECT *
 		FROM boards

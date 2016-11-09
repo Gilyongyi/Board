@@ -13,8 +13,8 @@ loadBoards();	//게시물 리스트 function 호출
 
 function loadBoards() {
 	$(document).scroll(function() {
-		var scrollTop = $(this).scrollTop();
-		var documentHeight = $(document).height();
+		var scrollTop = $(this).scrollTop();		
+		var documentHeight = $(document).height();	
 		var windowHeight = $(window).height();
 		if ( scrollTop == ( documentHeight - windowHeight )) {
 			append();	//무한스크롤 데이터 추가
@@ -51,6 +51,7 @@ function loadBoards() {
 
 //게시물 추가하기
 $('#addBtn').click(function() {
+	var upFile = $('input[name=upFile]')[0].files[0];
 	if( $('#fContent').val() == null || $('#fContent').val() ==''){
 		alert('내용을 입력하지 않았습니다.');
 		return false;
@@ -64,72 +65,18 @@ $('#addBtn').click(function() {
 		alert('비밀번호를 입력하지 않았습니다.')
 		return false;
 	}
-	/*//file to json
-	var upFile = $("input[name=upFile]")[0].files[0];
-	//console.log(upFile);
-	var formData = new FormData();
-		formData.title =$("input[name=title]").val();
-		formData.content =$("textarea[name=content]").val();
-		formData.user =$("input[name=user]").val();
-		formData.upFile = {"upFile.name":upFile.name,
-							"upFile.lastModified":upFile.lastModified,
-							"upFile.lastModifiedDate":upFile.lastModifiedDate,
-							"upFile.size":upFile.size,
-							"upFile.webkitRelativePath":upFile.webkitRelativePath};
-		formData.pwd = $("input[name=pwd]").val();
-	var jsonFormData = JSON.stringify(formData);
 	
-	console.log(JSON.stringify(formData));
-	
+	if(upFile==null || upFile==""){
 	$.ajax({
-	url: contextRoot + 'board/add.json',	//URL
-	method: 'post',							//http protocol post 방식
-	data: jsonFormData 
-		{
-		title:$('#fTitle').val(), 
-		content:$('#fContent').val(),
-		user:$('#fUser').val(),
-		upFile:upFile,
-		pwd:$('#fPwd').val()
+		url: contextRoot + 'board/add.json',	//URL
+		method: 'post',							//http protocol post 방식
+		data: {
+			title:$('#fTitle').val(), 
+			content:$('#fContent').val(),
+			user:$('#fUser').val(),
+			pwd:$('#fPwd').val()
 		},
-	processData: false,
-    contentType: false,
-	dataType: 'json',						//json 데이터 주고받음
-	success: function(result) {
-		if (result.status != 'success') {
-			alert('게시물 등록 오류입니다.');
-			return;
-		}
-		$('#boardTbl > tbody').append(template(result));
-		pageNo=1;
-		loadBoards(); 
-	},
-	error: function() {
-		alert('서버 요청 오류!');
-	}
-});*/
-	var formData = JSON.parse(JSON.stringify($('#formEdit').serializeArray()));
-	console.log("formData : "+formData);
-	if( $('#fContent').val() == null || $('#fContent').val() ==''){
-		alert('내용을 입력하지 않았습니다.');
-		return false;
-	}else if($('#fTitle').val() == null || $('#fTitle').val() ==''){
-		alert('제목을 입력하지 않았습니다.');
-		return false;
-	}else if($('#fUser').val() == null || $('#fUser').val() == ''){
-		alert('작성자를 입력하지 않았습니다.');
-		return false;
-	}else if($('#fPwd').val() == null || $('#fPwd').val() ==''){
-		alert('비밀번호를 입력하지 않았습니다.')
-		return false;
-	}
-	
-	$.ajax({
-		type : "POST",
-		url : contextRoot + 'board/add.json',
-		data : formData,
-		cache : false,
-		dataType: 'json',
+		dataType: 'json',						//json 데이터 주고받음
 		success: function(result) {
 			if (result.status != 'success') {
 				alert('게시물 등록 오류입니다.');
@@ -142,7 +89,36 @@ $('#addBtn').click(function() {
 		error: function() {
 			alert('서버 요청 오류!');
 		}
+	});
+	
+	}else{
+	var formData = new FormData();
+	formData.append("title",$('input[name=title]').val());
+	formData.append("content",$('textarea[name=content]').val());
+	formData.append("user",$('input[name=user]').val());
+	formData.append("pwd",$('input[name=pwd]').val());
+	formData.append("upFile",upFile);
+	
+	$.ajax({
+		type : "POST",
+		url : contextRoot + 'board/add.do',
+		data : formData,
+		contentType: false,
+		processData: false,
+		success: function(result) {
+			console.log(result.status)
+			$('#boardTbl > tbody').append(template(result));
+			pageNo=1;
+			loadBoards();
+			$('#formPage').hide();
+			
+		},
+		error: function() {
+			alert('서버 요청 오류!');
+		}
 	})
+	}
+	
 });
 
 //게시물 상세보기
@@ -317,6 +293,21 @@ $('#addReplyBtn').click(function() {
 	});
 });
 
+$(document).on('click','.delRpBtn',function() {
+	var rno = $(this).parent().parent().attr('data-no')
+	alert(rno)
+	  $.getJSON(
+		contextRoot + 'board/deleteReply.json?rno=' + rno, 
+	      function(result) {
+	        if (result.status != 'success') {
+	          return;
+	        }
+	        
+	        pageNo=1;
+	        loadReplys();
+	  });
+	});
+
 $('#fPwdView').on('keyup',function(){	
       var pwd = $('#fPwdView').val();
       var bno = $('#getBoardNo').val();
@@ -331,9 +322,12 @@ $('#fPwdView').on('keyup',function(){
             success : function(result) {
                 if (result.data==pwd) { 
 					$('#detailEdit').show();
+					$('.replyBtnTag').html('<button type="button" class="close" aria-label="Close" >'+
+					'<span aria-hidden="true" id="delRpBtn" class="delRpBtn">&times;</span></button>');
 					$('#detailEditFailed').hide();
                 } else {
                 	$('#detailEdit').hide();
+                	$('.replyBtnTag').html('');
                 	$('#detailEditFailed').show();
                 }
             } 

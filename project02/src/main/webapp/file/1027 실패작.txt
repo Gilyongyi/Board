@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.dao.BoardDao">
+  <resultMap type="board" id="boardMap">
+    <id column="bno" property="no"/>
+    <result column="title" property="title"/>
+    <result column="content" property="content"/>
+    <result column="cre_dt" property="createdDate"/>
+    <result column="uno" property="user.uno"/>
+    <result column="name" property="user.name"/>
+    <result column="email" property="user.email"/>
+    <result column="pwd" property="user.pwd"/>
+    <result column="svalue" property="sValue"/>
+    <result column="sword" property="sWord"/>
+  </resultMap>
+  
+  <select id="selectList" resultMap="boardMap" parameterType="map">
+    SELECT b1.bno, b1.title, b1.cre_dt, u1.name name
+	FROM boards b1, users u1
+	WHERE b1.uno = u1.uno
+	ORDER BY bno DESC
+    limit #{startIndex}, #{len}
+  </select>
+  
+  <select id="selectOne" resultMap="boardMap" parameterType="int">
+    SELECT b1.bno, b1.title, b1.content, u1.name name, b1.cre_dt
+    FROM boards b1, users u1
+    WHERE b1.uno = u1.uno
+    AND b1.bno=#{value} 
+  </select>
+  
+  <insert id="insert" parameterType="board">
+    INSERT INTO boards(title, content, uno, cre_dt)
+    VALUES(#{title}, #{content}, #{uno}, now())
+  </insert>
+  <!--
+  <update id="update" parameterType="board">
+    update boards set
+      title=#{title},
+      content=#{content},
+      user=#{user},
+      cre_dt=now()
+    where bno=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from boards 
+    where bno=#{no}
+  </delete>
+  
+  <select id="searchList" resultMap="boardMap" parameterType="map">
+    SELECT bno, title, user, cre_dt
+    FROM boards
+	    <if test="sValue eq 'sTitle'">
+		    	WHERE title Like CONCAT('%',#{sWord},'%')
+	    </if>
+	    <if test="sValue eq 'sUser'">
+		    	WHERE user Like CONCAT('%',#{sWord},'%')
+	    </if>
+	    <if test="sValue eq 'sDate'">
+		    	WHERE cre_dt Like CONCAT('%',#{sWord},'%')
+	    </if>
+    order by bno desc
+    limit #{startIndex}, #{len}
+  </select> -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,5 @@
 package com.board.controller.json;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.board.domain.Board;
 import com.board.service.BoardService;
@@ -55,44 +53,27 @@ public class BoardController {
   }
   
   @RequestMapping(
-      path="add" 
-      ,method=RequestMethod.POST
-      //,produces="application/json;charset=UTF-8"
-      )
-  @ResponseBody
-  public String add(Board board) {
-	  System.out.println("Controller add method start.....");
-    HashMap<String,Object> result = new HashMap<>();
-    System.out.println("Board : "+board);
-	MultipartFile upFile = board.getUpFile();
-    System.out.println("upFile : "+upFile);
-	
-    try {
-    	if(null!=upFile){
-    		System.out.println("File is exists...");
-    		String fileName = upFile.getOriginalFilename();
-    		System.out.println("FileName : "+fileName);
-    		board.setFileName(fileName);
-    		System.out.println("board:"+board.getFileName());
-    		File uploadFile = new File("C:\\Users\\yongyi\\git\\Board\\project02\\src\\main\\webapp\\file\\"+fileName);
-    		upFile.transferTo(uploadFile);
-    		System.out.println("filePath : " +uploadFile);
-    	}else{
-    		System.out.println("File is not exists...");
-    		board.setFileName("file is not exists...");
-    		System.out.println("fileName:"+board.getFileName());
-    		System.out.println("board : " +board);
-    	}
-    	boardService.addBoard(board);
-    	result.put("status", "success");
-    	System.out.println("success");
-    	}catch (Exception e) {
-    	result.put("status", "failure");
-    	System.out.println("fail");
-    	}
-    return new Gson().toJson(result);
-  }
-  
+	      path="add" 
+	      ,method=RequestMethod.POST
+	      ,produces="application/json;charset=UTF-8"
+	      )
+	  @ResponseBody
+	  public String add(Board board) {
+		System.out.println("JSON Controller add method start.....");
+	    HashMap<String,Object> result = new HashMap<>();
+	    try {
+	    	String fileName = "File is not exists...";
+	    	board.setFileName(fileName);
+	    	boardService.addBoard(board);
+	    	result.put("status", "success");
+	    	System.out.println("success");
+	    	}catch (Exception e) {
+	    	result.put("status", "failure");
+	    	System.out.println("fail");
+	    	}
+	    return new Gson().toJson(result);
+	  }
+
   @RequestMapping(
       path="update", 
       method=RequestMethod.POST,
@@ -178,6 +159,21 @@ public class BoardController {
 	    HashMap<String,Object> result = new HashMap<>();
 	    try {
 	      boardService.addReply(board);
+	      result.put("status", "success");
+	    } catch (Exception e) {
+	      result.put("status", "failure");
+	    }
+	    return new Gson().toJson(result);
+	  }
+  
+  @RequestMapping(
+	      path="deleteReply", 
+	      produces="application/json;charset=UTF-8")
+	  @ResponseBody
+	  public String deleteReply(int rno) {
+	    HashMap<String,Object> result = new HashMap<>();
+	    try {
+	      boardService.deleteReply(rno);
 	      result.put("status", "success");
 	    } catch (Exception e) {
 	      result.put("status", "failure");

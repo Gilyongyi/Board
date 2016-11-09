@@ -90,6 +90,11 @@ public class BoardServiceImpl implements BoardService {
 	public void addReply(Board board) {
 		boardDao.insertReply(board);
 	}
+	@Override
+	public int deleteReply(int rno) {
+		return boardDao.deleteReply(rno);
+	}
+	
 
 }
 

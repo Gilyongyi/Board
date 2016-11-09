@@ -1,0 +1,21 @@
+BLOB 형태로 File ==> 
+
+1. JSP ==> Controller
+  - Upload file 정보 전달.
+
+	javascript > controller 데이터 전달 ???
+	
+	예 ) 
+		$.ajax({
+			url : contextroot,
+			method : 'post',
+			data : {
+				fileName : $('#fileName').val()
+				upFile : ?????????????		<<File 업로드 Form 에서 어떤정보를 가져오느지
+			},
+			dataType : 'json'
+			success : function ()
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			)}
+2. Controller ==> MyBatis
+  - BLOB 형태로 File Stream 삽입 ( BLOB TYPE 설정 <=== typehandler)

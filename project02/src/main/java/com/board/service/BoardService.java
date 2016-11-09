@@ -16,6 +16,7 @@ public interface BoardService {
   //리플
   List<Board> getReplyList(int no);
   void addReply(Board board);
+  int deleteReply(int rno);
 }
 
 
