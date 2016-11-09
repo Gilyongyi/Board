@@ -45,6 +45,6 @@ public class BoardController {
 	    	result.put("status", "failure");
 	    	System.out.println("fail");
 	    	}
-	    return "http://localhost:8080/project02/board/main.html";
+	    return "";
 	  }
 }

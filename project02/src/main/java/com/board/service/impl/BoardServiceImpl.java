@@ -16,9 +16,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void addBoard(Board board) {
-		System.out.println("ServiceImpl add method start.....");
 		boardDao.insert(board);
-		System.out.println("ServiceImpl add method end....");
 	}
 	@Override
 	public Board getBoard(int no) {
@@ -40,7 +38,6 @@ public class BoardServiceImpl implements BoardService {
 		HashMap<String,Object> params = new HashMap<>();
 		params.put("startIndex", (pageNo - 1) * pageSize);
 		params.put("len", pageSize);
-		System.out.println("startIndex : "+ params);
 		return boardDao.selectList(params);
 	}
 	
@@ -60,7 +57,6 @@ public class BoardServiceImpl implements BoardService {
 		HashMap<String,Object> params = new HashMap<>();
 		params.put("startIndex", ((pageNo - 1) * pageSize)+1);
 		params.put("len", pageNo*pageSize);
-		System.out.println("startIndex : "+ params);
 		return boardDao.selectList(params);
 	}
 	@Override
@@ -74,7 +70,6 @@ public class BoardServiceImpl implements BoardService {
 		params.put("len", pageNo*pageSize);
 		params.put("sValue", sValue);
 		params.put("sWord", sWord);
-		System.out.println("startIndex : "+ params);
 		return boardDao.searchList(params);
 	}
 	

@@ -14,9 +14,9 @@ public interface BoardService {
   List<Board> getSearchList(int pageNo, int PageSize, String sValue, String sWord);	//게시물 검색
   
   //리플
-  List<Board> getReplyList(int no);
-  void addReply(Board board);
-  int deleteReply(int rno);
+  List<Board> getReplyList(int no);	//리플 리스트
+  void addReply(Board board);		//리플 추가
+  int deleteReply(int rno);			//리플 삭제
 }
 
 

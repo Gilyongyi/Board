@@ -136,22 +136,22 @@ $('#boardTbl').on('click', '.titleLink', function(event) {
 		    $('.view-form').removeClass('y-hidden');	//번호,등록일 등 변경 불가능한 div 숨기기
 		    $('.y-new-form').addClass('y-hidden');		//등록버튼 보이기
 		    
-		    //데이터 삽입
+		    //데이터 삽입 ( 편집시 기존 데이터 삽입 )
 		    $('#fNo').text(result.data.no);			
 		    $('#fTitle').val(result.data.title);
 		    $('#fContent').val(result.data.content);
 		    $('#fUser').val(result.data.user);
 		    $('#fCreatedDate').text(result.data.createdDate);
 		    $('#formDetail').show();
-		    //데이터 삽입
+		    //데이터 삽입 ( 상세보기 데이터 삽입 ) 
 		    $('#formPage').hide();
 		    $('#fNoView').text(result.data.no);
 		    $('#fTitleView').text(result.data.title);
 		    $('#fContentView').text(result.data.content);
 		    $('#fUserView').text(result.data.user);
 		    $('#fCreatedDateView').text(result.data.createdDate);
+		    $('#fImgView').attr("src","../file/"+result.data.fileName);
 		    $('#fFileNameView').text(result.data.fileName);
-		    
 		    $('#getBoardNo').attr('value',result.data.no);
 		    loadReplys();
 		    $('.form-reply').show();
@@ -208,12 +208,10 @@ $('#updBtn').click(function() {
       
     }, 'json');
 });
-
-$('#searchBtn').click(function(){
+$('#sWord').keyup(function(){
+//$('#searchBtn').click(function(){
 	$('#formDetail').hide();
 	$('#formPage').hide();
-	var sValue = $('#sValue').val();
-	var sWord = $('#sWord').val();
 	
 	$('#boardTbl > tbody > tr').remove();	
 	$.ajax({
@@ -241,7 +239,7 @@ $('#searchBtn').click(function(){
 			alert('검색 서버 요청 오류!');
 		}
 	});
-})
+});
 
 function loadReplys() {
 	var no = $('#getBoardNo').val();
@@ -295,7 +293,6 @@ $('#addReplyBtn').click(function() {
 
 $(document).on('click','.delRpBtn',function() {
 	var rno = $(this).parent().parent().attr('data-no')
-	alert(rno)
 	  $.getJSON(
 		contextRoot + 'board/deleteReply.json?rno=' + rno, 
 	      function(result) {
@@ -412,8 +409,6 @@ function append(){
 			}
 		});
 	}else{
-		var sValue = $('#sValue').val();
-		var sWord = $('#sWord').val();
 		
 		$.ajax({
 			url: contextRoot + 'board/searchList.json',

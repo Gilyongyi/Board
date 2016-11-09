@@ -141,7 +141,7 @@
   </select>
   
   <insert id="insert" parameterType="board">
-    INSERT INTO boards(title, content, user_name, cre_dt, pwd)
+    INSERT INTO boards(title, content, user_name, cre_dt, file_name, pwd)
     VALUES(#{title}, #{content}, #{user}, now(), #{pwd})
   </insert>
   
