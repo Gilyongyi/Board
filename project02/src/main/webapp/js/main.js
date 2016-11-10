@@ -10,7 +10,6 @@ var pageSize = 5;
 loadBoards();	//게시물 리스트 function 호출
 
 //게시물 리스트
-
 function loadBoards() {
 	$(document).scroll(function() {
 		var scrollTop = $(this).scrollTop();		
@@ -106,12 +105,10 @@ $('#addBtn').click(function() {
 		contentType: false,
 		processData: false,
 		success: function(result) {
-			console.log(result.status)
 			$('#boardTbl > tbody').append(template(result));
 			pageNo=1;
 			loadBoards();
 			$('#formPage').hide();
-			
 		},
 		error: function() {
 			alert('서버 요청 오류!');
@@ -152,7 +149,8 @@ $('#boardTbl').on('click', '.titleLink', function(event) {
 		    $('#fCreatedDateView').text(result.data.createdDate);
 		    $('#fImgView').attr("src","../file/"+result.data.fileName);
 		    $('#fFileNameView').text(result.data.fileName);
-		    $('#getBoardNo').attr('value',result.data.no);
+		    $('#getBoardNo').attr("value",result.data.no);
+		    $('#downloadBtn').attr("href","../file/"+result.data.fileName);
 		    loadReplys();
 		    $('.form-reply').show();
 		    
@@ -168,7 +166,7 @@ $('#delBtn').click(function(event) {
           alert('댓글이 달린 게시물은 삭제 할 수 없습니다!');
           return;
         }
-        
+        alert('삭제');
         $('.view-form').addClass('y-hidden');
         $('.y-new-form').removeClass('y-hidden');
         $('#resetBtn').click();

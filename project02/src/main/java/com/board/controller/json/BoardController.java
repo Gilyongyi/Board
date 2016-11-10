@@ -28,7 +28,7 @@ public class BoardController {
     HashMap<String,Object> result = new HashMap<>();
     try {
       List<Board> list = boardService.getBoardList(pageNo, pageSize);
-      
+      System.out.println("pageNo : "+pageNo);
       result.put("status", "success");
       result.put("data", list);
     } catch (Exception e) {
