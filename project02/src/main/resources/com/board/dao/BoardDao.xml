@@ -39,9 +39,9 @@
   </delete>
   
   <select id="checkPwd" resultMap="boardMap" parameterType="map">
-		SELECT *
-		FROM boards
-		WHERE bno = #{bno}
+	SELECT *
+	FROM boards
+	WHERE bno = #{bno}
   </select>
   
   <select id="selectOne" resultMap="boardMap" parameterType="int">

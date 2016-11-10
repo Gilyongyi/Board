@@ -28,7 +28,6 @@ public class BoardController {
     HashMap<String,Object> result = new HashMap<>();
     try {
       List<Board> list = boardService.getBoardList(pageNo, pageSize);
-      System.out.println("pageNo : "+pageNo);
       result.put("status", "success");
       result.put("data", list);
     } catch (Exception e) {
@@ -189,7 +188,6 @@ public class BoardController {
 		try {
 			System.out.println("입력받은 PWD : "+pwd);
 			System.out.println("입력받은 게시물 번호 : "+ bno +" / 입력받은 게시물 비밀번호 : "+boardService.getBoard(bno).getPwd());
-			
 			result.put("data", boardService.getBoard(bno).getPwd());
 			result.put("status", "success");
 		} catch (Exception e) {

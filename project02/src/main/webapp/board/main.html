@@ -22,6 +22,7 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
 			<li><a data-toggle="tab" href="#menu1">Board</a></li>
+			<li><a data-toggle="tab" href="#menu2">Map</a></li>
 		</ul>
 
 		<div class="tab-content">
@@ -157,6 +158,7 @@
 							<span id="detailEditFailed">비밀번호가 일치하지 않습니다.</span>
 						</div>
 					</div>
+					
 					<hr />
 					<div class="reply-slot">
 						<h2 id="open-reply">댓 글</h2>
@@ -179,7 +181,7 @@
 					</div>
 				</form>
 				<hr />
-				<!-- 글쓰기 -->
+				<!-- 글 쓰기 -->
 				<div id="formPage">
 					<h2 style="font-size: 30px;">글 쓰 기</h2>
 					<form class="form-horizontal" method="post"
@@ -292,6 +294,11 @@
 				<hr />
 				<a href="#" class="top"><img src="../image/scrolltop.PNG"></a>
 			</div>
+			<div id="menu2" class="tab-pane fade">
+				<div id="mySite"><p style="text-align:center;">내위치 - Naver Map API 사용</p></div>
+				<div id="map" 
+				style="width:600px;height:600px;margin:auto auto 50px auto"></div>
+			</div>
 			<div id="footer"
 				style="text-align: center; border-top: 2px solid black">
 				<p>
@@ -333,16 +340,10 @@
 	<script src="../js/app-context.js"></script>
 	<script src="../js/jquery.form.js"></script>
 	<script src="../js/accordion.js"></script>
+	
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=LqrRUzBB2Smw85ofkwwT"></script>
 	<!-- 사용자 js -->
 	<script src="../js/main.js"></script>
+	<script src="../js/navermap.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
