@@ -32,10 +32,13 @@ body {
 
 
 h2{
-	margin-top:55px !important;
 	background-color: #000000;
 	color:white;
 	padding: 3px 0 3px 20px;
+}
+
+h3{
+	padding-left:10px;
 }
 
 
@@ -77,3 +80,6 @@ a.top {
 	position: relative;
 }
 
+.reply-slot{
+	margin-bottom:30px;
+}

@@ -377,7 +377,7 @@ $('.top').click( function() {
 	});
 
 function scrollTop(){
-	$('html, body').animate({scrollTop:0},300);
+	$('html, body').animate({scrollTop:0},400);
 	  return false;
 }
 

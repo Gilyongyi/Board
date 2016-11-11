@@ -27,12 +27,12 @@
 
 		<div class="tab-content">
 			<div id="home" class="tab-pane fade in active info">
-				<h3>개인프로젝트</h3>
-				<h3>프로젝트 내용 : 게시판 만들기</h3>
-				<h3>기간 : 2016.10.24(월) ~ 2016.11.10(목)</h3>
-				<h3>요구사항</h3>
+				<h2><b>개인프로젝트</b></h2>
+				<h3><b>프로젝트 내용 : 게시판 만들기</b></h3>
+				<h3><b>기간 : 2016.10.24(월) ~ 2016.11.10(목)</b></h3>
+				<h3><b>요구사항</b></h3>
 				<h3>&nbsp;&nbsp;- 기본적인 CRUD, 페이징 처리, 검색, 파일업로드, 댓글</h3>
-				<h3>특징</h3>
+				<h3><b>특징</b></h3>
 				<div class="containerAc">
 					<ul class="collapsible popout" data-collapsible="accordion">
 						<li class="">
@@ -81,16 +81,17 @@
 						</li>
 					</ul>
 				</div>
-				<h3>사용기술</h3>
-				<h3>&nbsp;&nbsp;- Java , HTML5, CSS3, JavaScript, jQuery, ajax,
+				<h2>사용 기술 / Tool / DBMS</h2>
+				<h3><b>기술</b></h3>
+				<h3>&nbsp;&nbsp;- Java , HTML5, CSS3, JavaScript, jQuery, ajax, MyBatis,
 					Handlebars, Bootstrap</h3>
-				<h3>사용 Tool</h3>
+				<h3><b>Tool</b></h3>
 				<h3>&nbsp;&nbsp;- Eclipse, Gradle, exERD, MySQL Workbench,
 					Oracle Developer, NPM</h3>
-				<h3>사용 DBMS</h3>
+				<h3><b>DBMS</b></h3>
 				<h3>&nbsp;&nbsp;- Oracle11g, MySQL</h3>
-				<h3>Spring Architecture</h3>
-				<img src="../image/springmvc.png" style="width: 1000px;">
+				<h2><b>Architecture</b></h2>
+				<img src="../image/springmvc.png" style="width: 970px;">
 			</div>
 			<div id="menu1" class="tab-pane fade">
 				<!-- 게시물 상세보기 -->
@@ -158,8 +159,6 @@
 							<span id="detailEditFailed">비밀번호가 일치하지 않습니다.</span>
 						</div>
 					</div>
-					
-					<hr />
 					<div class="reply-slot">
 						<h2 id="open-reply">댓 글</h2>
 					</div>
@@ -180,7 +179,6 @@
 							입력</button>
 					</div>
 				</form>
-				<hr />
 				<!-- 글 쓰기 -->
 				<div id="formPage">
 					<h2 style="font-size: 30px;">글 쓰 기</h2>
@@ -258,25 +256,26 @@
 				</div>
 				<!-- 글 목록 -->
 				<div id="SearchPage">
-					<h2 class="basicList" id="totalCount">글 목 록</h2>
-					<div class="col-md-2 col-md-offset-1">
-						<select name="sValue" id="sValue" class="form-control">
-							<option value="sTitle">제 목</option>
-							<option value="sUser">작 성 자</option>
-							<option value="createdDate">등 록 일</option>
-						</select>
-					</div>
-					<div class="col-md-6 form-group">
-						<input type="text" id="sWord" class="form-control"
-							placeholder="검색어를 입력해주세요">
-					</div>
-					<div class="col-md-3">
-						<button type="button" id="searchBtn" class="btn btn-primary">검색</button>
-						<button type="button" id="writeBtn" class="btn btn-primary">글쓰기</button>
+					<div class="col-md-12" style="padding:0;"><h2 class="basicList" id="totalCount">글 목 록</h2></div>
+					<div id="SearchWrapper" class="col-md-12">
+						<div class="col-md-2 col-md-offset-1">
+							<select name="sValue" id="sValue" class="form-control">
+								<option value="sTitle">제 목</option>
+								<option value="sUser">작 성 자</option>
+								<option value="createdDate">등 록 일</option>
+							</select>
+						</div>
+						<div class="col-md-6 form-group">
+							<input type="text" id="sWord" class="form-control"
+								placeholder="검색어를 입력해주세요">
+						</div>
+						<div class="col-md-3">
+							<button type="button" id="searchBtn" class="btn btn-primary">검색</button>
+							<button type="button" id="writeBtn" class="btn btn-primary">글쓰기</button>
+						</div>
 					</div>
 				</div>
 				<div id="listPage">
-					<hr />
 					<table id="boardTbl" class="table table-hover">
 						<thead>
 							<tr>
@@ -291,11 +290,10 @@
 						</tbody>
 					</table>
 				</div>
-				<hr />
 				<a href="#" class="top"><img src="../image/scrolltop.PNG"></a>
 			</div>
 			<div id="menu2" class="tab-pane fade">
-				<div id="mySite"><p style="text-align:center;">내위치 - Naver Map API 사용</p></div>
+				<div id="mySite"><h2 style="text-align:center;">내위치 - Naver Map API 사용</h2></div>
 				<div id="map" 
 				style="width:600px;height:600px;margin:auto auto 50px auto"></div>
 			</div>
