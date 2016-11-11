@@ -206,6 +206,7 @@ $('#updBtn').click(function() {
       
     }, 'json');
 });
+
 $('#sWord').keyup(function(){
 //$('#searchBtn').click(function(){
 	$('#formDetail').hide();
@@ -366,8 +367,10 @@ $('#resetBtn').click(function() {
 $( window ).scroll( function() {
 	if ($(this).scrollTop() > 200) {
 	    $('.top').fadeIn();
+	    $('.searchIcon').fadeIn();
 	} else {
 	    $('.top').fadeOut();
+	    $('.searchIcon').fadeOut();
 	  }
 	});
 
@@ -375,6 +378,11 @@ $('.top').click( function() {
 	event.preventDefault();
 	scrollTop();
 	});
+
+$('.searchIcon').on('click',function(){
+	event.preventDefault();
+	$('#sWord').focus();
+})
 
 function scrollTop(){
 	$('html, body').animate({scrollTop:0},400);

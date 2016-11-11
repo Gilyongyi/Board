@@ -68,6 +68,12 @@ a.top {
   bottom: 50px;
   display: none;
 }
+a.searchIcon {
+  position: fixed;
+  right: 6%;
+  bottom: 50px;
+  display: none;
+}
 
 .form-control{
 	margin-top:9px !important;
@@ -82,4 +88,23 @@ a.top {
 
 .reply-slot{
 	margin-bottom:30px;
+}
+#navtabs{
+	border-bottom: 0px solid #ddd;
+}
+#navtabs>p{
+	 padding:0;
+}
+#navtabs>.active{
+	margin-top:10px;
+}
+#navtabs>p>a{
+	padding:5px !important;
+	text-align: center;
+	text-decoration: none;
+	color:black;
+	width:33.3%;
+	float:left;
+	font-size:25px;
+	border:1px solid #c0c0c0;
 }

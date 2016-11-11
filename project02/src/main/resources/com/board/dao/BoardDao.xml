@@ -70,7 +70,7 @@
   
   <select id="searchList" resultMap="boardMap" parameterType="map">
     SELECT * FROM (
-		SELECT ROWNUM rowno,v.bno,v.title,v.user_name,v.cre_dt,NVL(v.rp,'0') rp, v.totalcount
+		SELECT ROWNUM rowno,v.bno,v.title,v.user_name,v.cre_dt, NVL(v.rp,'0') rp, v.totalcount
 	  	FROM
 			(SELECT b1.bno bno, b1.title title, b1.user_name user_name, b1.cre_dt cre_dt,
 			 	b2.totalcount totalcount, NVL(r.rp,'0') rp FROM boards b1,
